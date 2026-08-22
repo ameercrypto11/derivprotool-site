@@ -98,9 +98,13 @@
     <div class="pay-note">Payment verification and license issuance will be connected to the secure backend.</div>
   </div>
 </div>
-
-
 <div id="analysisGate" class="analysis-locked">
+  <div class="lock-panel">
+  <h3>Enter Access Key</h3>
+  <input id="accessKey" type="text" placeholder="Enter access key">
+  <button id="unlockBtn" type="button">UNLOCK</button>
+  <p id="keyStatus"></p>
+</div>
 <section class="summary">
   <div class="metric"><b id="avgConf">—</b><span>AVG CONFIDENCE</span></div>
   <div class="metric"><b id="liveEntries">0</b><span>LIVE ENTRIES</span></div>
@@ -125,6 +129,18 @@
   const addr=document.getElementById("paymentAddress").textContent.trim();
   const form=document.getElementById("paymentForm");
   const status=document.getElementById("paymentStatus");
+  const accessKey = document.getElementById("accessKey");
+const unlockBtn = document.getElementById("unlockBtn");
+const keyStatus = document.getElementById("keyStatus");
+
+unlockBtn.onclick = () => {
+  if (accessKey.value.trim() === "#BM8367") {
+    document.getElementById("analysisGate").classList.remove("analysis-locked");
+    keyStatus.textContent = "Access granted";
+  } else {
+    keyStatus.textContent = "Invalid access key";
+  }
+};
 
   open.onclick=()=>b.classList.add("open");
   close.onclick=()=>b.classList.remove("open");
