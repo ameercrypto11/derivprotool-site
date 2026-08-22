@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<!-- WhatsApp / social link preview metadata -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Trading Platform">
+<meta property="og:description" content="Real-time Deriv analysis tool">
+<meta property="og:url" content="https://derivprotool.site/">
+<meta property="og:image" content="https://derivprotool.site/derivprotool_site_preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="derivprotool.site">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trading Platform">
+<meta name="twitter:description" content="Real-time Deriv analysis tool">
+<meta name="twitter:image" content="https://derivprotool.site/derivprotool_site_preview.png">
+
+<title>derivprotool.site — Matches Analysis • Digit Fix</title>
+<style>
+:root{--bg:#070d20;--panel:#101a35;--panel2:#0c142b;--line:#26375f;--text:#f5f7ff;--muted:#9aa8c7;--blue:#22a7ff;--green:#20d79a;--gold:#f5c451;--red:#ff5470}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;}body{margin:0;min-width:320px;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at top,#15234a 0,#070d20 45%,#050914 100%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+.app{width:100%;max-width:620px;margin:auto;min-height:100vh;padding-bottom:calc(30px + env(safe-area-inset-bottom));}
+.header{position:sticky;top:0;z-index:10;background:rgba(7,13,32,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:16px 14px 12px;border-bottom:1px solid #1e2b4d}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#172b58,#0b6ca8);display:grid;place-items:center;font-weight:900;color:#fff;box-shadow:0 0 20px #168ee555}.brand h1{font-size:21px;margin:0}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.refreshBtn{touch-action:manipulation;-webkit-appearance:none;border:1px solid #245fa8;background:#0c2347;color:#69c8ff;padding:8px 10px;border-radius:12px;font-weight:900;font-size:11px;margin-left:auto;cursor:pointer}.status{margin-left:8px;border:1px solid #236d61;background:#0d302d;color:var(--green);padding:8px 11px;border-radius:12px;font-weight:800;font-size:12px}
+.tabs{display:flex;gap:7px;overflow:auto;margin-top:13px;padding-bottom:2px}.tab{white-space:nowrap;border:1px solid var(--line);background:#0b142b;color:#aab5d0;border-radius:13px;padding:10px 14px;font-weight:800}.tab.active{background:#f4f6fb;color:#111a2f}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px}.metric{background:linear-gradient(145deg,#111d3b,#0a1229);border:1px solid var(--line);border-radius:15px;padding:14px;text-align:center}.metric b{font-size:24px}.metric span{display:block;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.7px;margin-top:4px}
+.section-title{padding:2px 14px 10px;color:#dce5ff;font-size:14px;font-weight:900;letter-spacing:.8px}
+.card{margin:0 14px 12px;background:linear-gradient(150deg,#111d3c,#0b142b);border:1px solid #263861;border-radius:20px;padding:16px;box-shadow:0 10px 28px #0005}.top{display:flex;justify-content:space-between;align-items:flex-start}.name{font-size:18px;font-weight:900}.symbol{color:#7282a6;font-size:12px;margin-top:4px}.live{color:var(--green);font-size:12px;font-weight:900}.live:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 10px var(--green)}
+.signal{display:flex;flex-direction:column;align-items:center;padding:17px 0 7px}.digit{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#28c4ff,#087bd6 65%,#075da7);font-size:52px;font-weight:900;box-shadow:0 0 30px #169de655}.digit.wait{background:#202a45;color:#e7b94e;font-size:42px}.confidence{color:var(--gold);font-size:18px;font-weight:900;margin-top:12px}.count.ready{color:#20d79a;font-weight:1000;animation:pulseReady 0.8s ease-in-out infinite alternate}@keyframes pulseReady{from{opacity:.65}to{opacity:1}}.count{font-size:21px;font-weight:1000;letter-spacing:.6px;margin-top:7px}.count.waiting{color:#8e9bb8}.mini{display:flex;justify-content:space-between;gap:8px;margin-top:12px}.pill{flex:1;text-align:center;border:1px solid #25375e;background:#091126;border-radius:11px;padding:8px;font-size:10px;color:var(--muted)}.pill strong{display:block;color:#e7edff;font-size:12px;margin-top:2px}.digits{display:flex;gap:4px;overflow:hidden;margin-top:12px}.digits i{font-style:normal;width:25px;height:25px;border-radius:7px;background:#182544;display:grid;place-items:center;font-size:11px;color:#cbd5ed}
+.note{padding:10px 14px;color:#7f8daa;font-size:11px;line-height:1.5;text-align:center}
+.footer{padding:15px 14px;text-align:center;color:#667493;font-size:10px}
+
+.result{margin-top:12px;text-align:center;font-size:13px;font-weight:900}
+.result.win{color:#20d79a}.result.loss{color:#ff5470}.result.wait{color:#9aa8c7}
+.statsline{margin-top:8px;text-align:center;color:#9aa8c7;font-size:11px}@media(max-width:420px){.app{max-width:none}.header{padding-top:calc(12px + env(safe-area-inset-top))}.brand h1{font-size:19px}.status{padding:7px 8px}.refreshBtn{padding:9px 9px}.card{margin-left:10px;margin-right:10px;padding:14px}.summary{padding:10px}.digit{width:104px;height:104px;font-size:48px}.count{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header">
+  <div class="brand"><div class="logo">DP</div><div><h1>derivprotool.site</h1><small>REAL-TIME MATCHES ANALYSIS • NORMAL MODE</small></div><button class="refreshBtn" id="refreshBtn" type="button">↻ REFRESH</button><div class="status" id="conn">CONNECTING</div></div>
+  <div class="tabs"><div class="tab active">🎯 Matches</div><div class="tab">⚖ Even / Odd</div><div class="tab">↕ Over / Under</div><div class="tab">📊 Stats</div><div class="tab">📓 Journal</div><div class="tab">🔔 Alerts</div></div>
+</header>
+
+<section class="summary">
+  <div class="metric"><b id="avgConf">—</b><span>AVG CONFIDENCE</span></div>
+  <div class="metric"><b id="liveEntries">0</b><span>LIVE ENTRIES</span></div>
+  <div class="metric"><b id="analyzing">0</b><span>ANALYZING</span></div>
+  <div class="metric"><b id="winStreak">0</b><span>WIN STREAK</span></div>
+</section>
+
+<div class="section-title">ACTIVE MATCHES SIGNALS</div>
+<div id="cards"></div>
+
+<div class="note"><b>Mobile:</b> Open in Safari/Chrome/Edge/Firefox with internet on and keep the page in the foreground. iOS can pause live WebSocket pages when they are backgrounded.<br><br>Signals are statistical candidates from live tick data, not guaranteed outcomes. Confidence is a conservative score, not a win probability. Weak setups are held back instead of being forced into a prediction. The tool first counts down 10→1 for the next prediction. Only at zero does it calculate and lock the candidate, then run a 4→1 entry countdown before TRADE NOW.</div>
+<div class="footer">derivprotool.site • Analysis / testing mode • No automatic trade execution<br>Works in modern Chrome, Safari, Firefox and Edge on Android, iPhone, iPad and desktop.</div>
+</div>
+
+<script>
+const symbols=[
+ {name:"Volatility 10 (1s)",symbol:"1HZ10V"},
+ {name:"Volatility 25 (1s)",symbol:"1HZ25V"},
+ {name:"Volatility 50 (1s)",symbol:"1HZ50V"},
+ {name:"Volatility 75 (1s)",symbol:"1HZ75V"},
+ {name:"Volatility 100 (1s)",symbol:"1HZ100V"}
+];
+const N=100, MIN=35, ENTRY_COUNTDOWN=10, MIN_CONFIDENCE=62;
+const state={};
+symbols.forEach((s,i)=>state[s.symbol]={...s,digits:[],last:null,candidate:null,confidence:null,count:0,phase:"WAITING",wins:0,losses:0,predictions:0,streak:0,cycle:0,lockedDigit:null,awaitingResult:false,lastPrediction:null,resultText:"WAITING FOR RESULT",liveSeen:false,historyLoaded:false,pendingLive:[],lastEpoch:0,deadline:0,timerId:null,timerToken:0,justResolved:false,lastResult:null});
+const cards=document.getElementById("cards");
+symbols.forEach((s,i)=>{
+ const el=document.createElement("article"); el.className="card"; el.id="card-"+s.symbol;
+ el.innerHTML=`<div class="top"><div><div class="name">${s.name}</div><div class="symbol">${s.symbol}</div></div><div class="live" id="live-${s.symbol}">LIVE</div></div>
+ <div class="signal"><div class="digit wait" id="digit-${s.symbol}">⌛</div><div class="confidence" id="conf-${s.symbol}">Confidence: —</div><div class="count waiting" id="count-${s.symbol}">LOADING TICK HISTORY</div></div>
+ <div class="mini"><div class="pill">LAST DIGIT<strong id="last-${s.symbol}">—</strong></div><div class="pill">SAMPLE<strong id="sample-${s.symbol}">0</strong></div><div class="pill">PREDICTIONS<strong id="track-${s.symbol}">0</strong></div></div>
+ <div class="digits" id="digits-${s.symbol}"></div><div class="result wait" id="result-${s.symbol}">WAITING FOR RESULT</div><div class="statsline" id="stats-${s.symbol}">Wins: 0 • Losses: 0 • Hit rate: —</div>`;
+ cards.appendChild(el);
+});
+
+function lastDigit(quote){
+ const str=String(quote);
+ const dec=str.includes(".")?str.split(".")[1]:"";
+ return Number(dec ? dec[dec.length-1] : str[str.length-1]);
+}
+function analyze(st){
+  if(st.digits.length<MIN || !st.liveSeen){
+    st.phase="WAITING";
+    st.count=0;
+    st.lockedDigit=null;
+    st.awaitingResult=false;
+    st.resultText="ANALYZING LIVE DATA";
+    return;
+  }
+
+  // Never change a locked prediction during its countdown.
+  if(st.phase==="PREDICT_COUNTDOWN" || st.phase==="PRE_ENTRY" || st.phase==="TRADE_READY") return;
+
+  analyzeCandidate(st);
+
+  // Always allow the ranked candidate to proceed in normal analysis mode.
+  // Confidence is a strength score, not a probability or guarantee.
+  if(st.candidate===null){
+    st.phase="ANALYZING";
+    st.count=0;
+    st.lockedDigit=null;
+    st.awaitingResult=false;
+    st.resultText="ANALYZING LIVE DATA";
+    return;
+  }
+
+  st.resultText="WAITING FOR ENTRY";
+  startPredictionCountdown(st);
+}
+function startPredictionCountdown(st){
+  if(st.timerId) clearTimeout(st.timerId);
+
+  // Clear any previous prediction while waiting for the next one.
+  st.candidate=null;
+  st.lockedDigit=null;
+  st.confidence=0;
+  st.count=10;
+  st.phase="PREDICT_COUNTDOWN";
+  st.resultText="NEXT PREDICTION COUNTDOWN";
+
+  const token=++st.timerToken;
+  const end=Date.now()+10000;
+
+  const step=()=>{
+    if(token!==st.timerToken || st.phase!=="PREDICT_COUNTDOWN") return;
+    const left=end-Date.now();
+
+    if(left<=0){
+      st.timerId=null;
+
+      // Calculate the prediction only after the prediction countdown ends.
+      analyzeCandidate(st);
+
+      if(st.candidate!==null && st.candidate!==undefined){
+        startEntryCountdown(st);
+      }else{
+        st.phase="PREDICT_COUNTDOWN";
+        st.resultText="PREPARING NEXT PREDICTION";
+        startPredictionCountdown(st);
+      }
+      render(st);
+      updateSummary();
+      return;
+    }
+
+    st.count=Math.ceil(left/1000);
+    render(st);
+    updateSummary();
+    st.timerId=setTimeout(step,100);
+  };
+
+  step();
+}
+
+function analyzeCandidate(st){
+  const data=(st.digits||[]).filter(d=>Number.isInteger(d)&&d>=0&&d<=9);
+  const n=data.length;
+
+  st.candidate=null;
+  st.confidence=0;
+  if(n<MIN) return;
+
+  const K=10;
+  const recent=data.slice(-Math.min(40,n));
+
+  function pick(scores){
+    let best=0;
+    for(let d=1;d<K;d++){
+      if(scores[d]>scores[best]) best=d;
+    }
+    return best;
+  }
+
+  // Walk-forward model scoring: use only history before each target digit.
+  // These scores rank candidates; they are not probabilities.
+  function globalPick(hist){
+    const c=Array(K).fill(1);
+    for(const d of hist) c[d]++;
+    return pick(c);
+  }
+
+  function recentPick(hist){
+    const c=Array(K).fill(1);
+    for(const d of hist.slice(-Math.min(40,hist.length))) c[d]++;
+    return pick(c);
+  }
+
+  function ewmaPick(hist){
+    const s=Array(K).fill(0);
+    for(let i=0;i<hist.length;i++){
+      s[hist[i]] += Math.pow(.94,hist.length-1-i);
+    }
+    return pick(s);
+  }
+
+  function transitionPick(hist){
+    if(hist.length<2) return globalPick(hist);
+    const prev=hist[hist.length-1];
+    const c=Array(K).fill(1);
+    for(let i=0;i<hist.length-1;i++){
+      if(hist[i]===prev) c[hist[i+1]]++;
+    }
+    return pick(c);
+  }
+
+  function contextPick(hist){
+    if(hist.length<3) return transitionPick(hist);
+    const a=hist[hist.length-2], b=hist[hist.length-1];
+    const c=Array(K).fill(1);
+    for(let i=0;i<hist.length-2;i++){
+      if(hist[i]===a && hist[i+1]===b) c[hist[i+2]]++;
+    }
+    return pick(c);
+  }
+
+  const modelFns=[globalPick,recentPick,ewmaPick,transitionPick,contextPick];
+
+  // Measure the models on the available history without using future data
+  // for the candidate itself.
+  const modelHits=Array(modelFns.length).fill(0);
+  let trials=0;
+  const validationStart=Math.max(25,n-75);
+
+  for(let i=validationStart;i<n;i++){
+    const hist=data.slice(0,i);
+    const actual=data[i];
+    for(let m=0;m<modelFns.length;m++){
+      if(modelFns[m](hist)===actual) modelHits[m]++;
+    }
+    trials++;
+  }
+
+  const modelAcc=modelHits.map(h=>trials?h/trials:.10);
+
+  // Live ensemble vote, weighted by measured out-of-sample performance.
+  const votes=Array(K).fill(0);
+  for(let m=0;m<modelFns.length;m++){
+    const d=modelFns[m](data);
+    const weight=1+Math.max(0,modelAcc[m]-.10)*10;
+    votes[d]+=weight;
+  }
+
+  const ranked=[...Array(K).keys()].sort((a,b)=>votes[b]-votes[a]);
+  const best=ranked[0];
+  const second=ranked[1];
+
+  const totalVotes=votes.reduce((a,b)=>a+b,0)||1;
+  const lead=Math.max(0,votes[best]-votes[second]);
+  const agreement=modelFns.reduce((n,fn)=>n+(fn(data)===best?1:0),0);
+
+  // Confidence is only a signal-strength score, never a win probability.
+  const agreementScore=agreement/modelFns.length;
+  const leadScore=Math.min(1,lead/(totalVotes*.25));
+  const bestMeasured=Math.max(...modelAcc);
+  const validationScore=Math.max(0,Math.min(1,(bestMeasured-.10)/.15));
+
+  let confidence=Math.round(
+    52 + agreementScore*14 + leadScore*8 + validationScore*8
+  );
+  confidence=Math.max(52,Math.min(82,confidence));
+
+  st.candidate=best;
+  st.confidence=confidence;
+}
+function startEntryCountdown(st){
+  if(st.timerId) clearTimeout(st.timerId);
+
+  // Lock the chosen prediction. Live ticks must not change this digit.
+  st.lockedDigit=st.candidate;
+  st.count=4;
+  st.phase="PRE_ENTRY";
+  st.resultText="ENTRY COUNTDOWN";
+
+  const token=++st.timerToken;
+  const end=Date.now()+4000;
+
+  const step=()=>{
+    if(token!==st.timerToken || st.phase!=="PRE_ENTRY") return;
+    const left=end-Date.now();
+
+    if(left<=0){
+      st.count=0;
+      st.timerId=null;
+      prepareEntry(st);
+      render(st);
+      updateSummary();
+      return;
+    }
+
+    st.count=Math.ceil(left/1000);
+    render(st);
+    updateSummary();
+    st.timerId=setTimeout(step,100);
+  };
+
+  step();
+}
+
+function prepareEntry(st){
+  if(st.lockedDigit===null || st.lockedDigit===undefined) return;
+  st.phase="TRADE_READY";
+  st.awaitingResult=true;
+  st.lastPrediction=st.lockedDigit;
+  st.resultText="TRADE NOW";
+  st.count=0;
+}
+
+function startCountdown(st){
+  // Backward-compatible alias: V13 uses the pre-entry countdown.
+  startPredictionCountdown(st);
+}
+
+function render(st){
+ document.getElementById("last-"+st.symbol).textContent=st.last??"—";
+ document.getElementById("sample-"+st.symbol).textContent=st.digits.length;
+ document.getElementById("track-"+st.symbol).textContent=st.predictions;
+ const dg=document.getElementById("digit-"+st.symbol), cf=document.getElementById("conf-"+st.symbol), co=document.getElementById("count-"+st.symbol);
+ const re=document.getElementById("result-"+st.symbol), ss=document.getElementById("stats-"+st.symbol);
+ if(st.justResolved && st.resultText.startsWith("WIN")){
+   dg.className="digit resultDigit";dg.textContent=st.lastResult;
+   cf.textContent="RESULT CONFIRMED";co.className="count ready";co.textContent="WIN";
+ } else if(st.justResolved && st.resultText.startsWith("LOSS")){
+   dg.className="digit resultDigit";dg.textContent=st.lastResult;
+   cf.textContent="RESULT CONFIRMED";co.className="count waiting";co.textContent="LOSS";
+ } else if(st.phase==="WAITING"){
+   dg.className="digit wait";dg.textContent="⌛";
+   cf.textContent="Confidence: —";
+   co.className="count waiting";
+   co.textContent=st.liveSeen?"ANALYZING LIVE DATA":"WAITING FOR LIVE TICK";
+ } else if(st.phase==="ANALYZING"){
+   dg.className="digit wait";dg.textContent="⌛";
+   cf.textContent="Confidence: "+(st.confidence??"—")+"%";
+   co.className="count waiting";co.textContent="PREPARING NEXT SIGNAL";
+ } else if(st.phase==="PREDICT_COUNTDOWN"){
+   dg.className="digit wait";dg.textContent="—";
+   cf.textContent="Confidence: —";
+   co.className="count";
+   co.textContent="NEXT PREDICTION IN "+st.count+"S";
+ } else if(st.phase==="PRE_ENTRY"){
+   dg.className="digit";dg.textContent=st.lockedDigit;
+   cf.textContent="Confidence: "+st.confidence+"%";
+   co.className="count";
+   co.textContent="ENTRY IN "+st.count+"S";
+ } else if(st.phase==="TRADE_READY"){
+   dg.className="digit";dg.textContent=st.lockedDigit;
+   cf.textContent="Confidence: "+st.confidence+"%";
+   co.className="count ready";
+   co.textContent="TRADE NOW • MATCH "+st.lockedDigit;
+ } else {
+   dg.className="digit wait";dg.textContent="—";
+   cf.textContent="Confidence: —";
+   co.className="count waiting";
+   co.textContent="PREPARING NEXT PREDICTION";
+ }
+ re.textContent=st.resultText;
+ re.className="result "+(st.resultText.startsWith("WIN")?"win":st.resultText.startsWith("LOSS")?"loss":"wait");
+ const total=st.wins+st.losses;
+ const rate=total?((st.wins/total)*100).toFixed(1)+"%":"—";
+ ss.textContent=`Wins: ${st.wins} • Losses: ${st.losses} • Hit rate: ${rate}`;
+ const ds=document.getElementById("digits-"+st.symbol); ds.innerHTML=st.digits.slice(-20).map(d=>`<i>${d}</i>`).join("");
+}
+function tickReceived(symbol,quote,epoch=0){
+ const st=state[symbol], d=lastDigit(quote);
+ if(!st || Number.isNaN(d)) return;
+
+ // If the historical response has not arrived yet, hold the live tick.
+ if(!st.historyLoaded){
+   st.pendingLive.push({quote:Number(quote),epoch:Number(epoch)||Date.now()/1000});
+   if(st.pendingLive.length>20) st.pendingLive.shift();
+   return;
+ }
+
+ st.liveSeen=true;
+
+ // Ignore duplicate/out-of-order ticks BEFORE using a tick as a result.
+ const ep=Number(epoch)||0;
+ if(ep && ep<=st.lastEpoch) return;
+ st.lastEpoch=ep || st.lastEpoch;
+
+ // A completed countdown makes the next NEW live tick the measured outcome.
+ if(st.phase==="TRADE_READY" && st.awaitingResult && st.lastPrediction!==null){
+   st.predictions++;
+   st.lastResult=d;
+   if(d===st.lastPrediction){
+     st.wins++;
+     st.streak++;
+     st.resultText=`WIN — result ${d}`;
+   }else{
+     st.losses++;
+     st.streak=0;
+     st.resultText=`LOSS — result ${d}`;
+   }
+   st.awaitingResult=false;
+   st.lockedDigit=null;
+   st.lastPrediction=null;
+   st.deadline=0;
+   if(st.timerId) clearTimeout(st.timerId);
+   st.timerId=null;
+   st.timerToken++;
+   st.justResolved=true;
+   st.phase="WAITING";
+ }
+
+ st.last=d;
+ st.digits.push(d);
+ if(st.digits.length>N) st.digits.shift();
+
+ if(st.phase==="WAITING" && st.digits.length>=MIN && !st.awaitingResult){
+   if(st.justResolved){
+     st.justResolved=false;
+     // Start a fresh prediction cycle only after the confirmed result
+     // has been added to the history.
+     startPredictionCountdown(st);
+   }else{
+     startPredictionCountdown(st);
+   }
+ }
+
+ render(st);
+ updateSummary();
+}
+
+function cycle(){
+  symbols.forEach(st=>{
+    try{ render(st); }catch(err){ console.warn("Render error",st.symbol,err); }
+  });
+  updateSummary();
+}
+setInterval(cycle,1000);
+
+function updateSummary(){
+ let c=[],live=0,an=0,w=0;
+ symbols.forEach(s=>{let st=state[s.symbol];if(st.confidence)c.push(st.confidence);if(st.phase==="SIGNAL" || st.phase==="TRADE_READY")live++;if(st.phase==="WAITING" && st.historyLoaded)an++;w=Math.max(w,st.streak)});
+ document.getElementById("avgConf").textContent=c.length?Math.round(c.reduce((a,b)=>a+b,0)/c.length)+"%":"—";
+ document.getElementById("liveEntries").textContent=live;
+ document.getElementById("analyzing").textContent=an;
+ document.getElementById("winStreak").textContent=w;
+}
+let ws=null;
+let reconnectTimer=null;
+let reconnectAttempt=0;
+let endpointIndex=0;
+const WS_ENDPOINTS=[
+ "wss://ws.binaryws.com/websockets/v3",
+ "wss://api.derivws.com/trading/v1/options/ws/public"
+];
+
+function scheduleReconnect(){
+ if(reconnectTimer) return;
+ const delay=Math.min(1000*Math.pow(2,reconnectAttempt),10000);
+ reconnectTimer=setTimeout(()=>{
+   reconnectTimer=null;
+   reconnectAttempt++;
+   connect();
+ },delay);
+}
+
+function connect(){
+ if(!navigator.onLine){
+   setConnection("OFFLINE");
+   scheduleReconnect();
+   return;
+ }
+ if(ws && (ws.readyState===WebSocket.OPEN || ws.readyState===WebSocket.CONNECTING)) return;
+
+ const url=WS_ENDPOINTS[endpointIndex];
+ setConnection("CONNECTING");
+
+ try{
+   ws=new WebSocket(url);
+ }catch(e){
+   endpointIndex=(endpointIndex+1)%WS_ENDPOINTS.length;
+   setConnection("RECONNECTING");
+   scheduleReconnect();
+   return;
+ }
+
+ ws.onopen=()=>{
+   reconnectAttempt=0;
+   setConnection("CONNECTED");
+
+   symbols.forEach((s,i)=>{
+     ws.send(JSON.stringify({
+       ticks:s.symbol,
+       subscribe:1,
+       req_id:100+i,
+       passthrough:{symbol:s.symbol,type:"live"}
+     }));
+
+     ws.send(JSON.stringify({
+       ticks_history:s.symbol,
+       count:N,
+       end:"latest",
+       style:"ticks",
+       req_id:200+i,
+       passthrough:{symbol:s.symbol,type:"history"}
+     }));
+   });
+
+   // If history does not arrive, force a clean reconnect rather than
+   // leaving every card permanently stuck on "LOADING TICK HISTORY".
+   setTimeout(()=>{
+     if(ws && ws.readyState===WebSocket.OPEN &&
+        symbols.some(s=>!state[s.symbol].historyLoaded)){
+       setConnection("RETRYING DATA");
+       try{ ws.close(); }catch(e){}
+     }
+   },7000);
+ };
+
+ ws.onmessage=e=>{
+   try{
+     const d=JSON.parse(e.data);
+
+     if(d.error){
+       console.warn("Deriv API error:",d.error);
+       setConnection("API ERROR — CHECKING REQUEST");
+       // Keep the connection alive; reconnect logic will retry if needed.
+       return;
+     }
+
+     if(d.msg_type==="tick" && d.tick){
+       tickReceived(
+         d.tick.symbol,
+         Number(d.tick.quote),
+         Number(d.tick.epoch)
+       );
+       return;
+     }
+
+     if(d.msg_type==="history" && d.history && Array.isArray(d.history.prices)){
+       let symbol=d.passthrough?.symbol || d.echo_req?.ticks_history || null;
+
+       if(!symbol && Number.isInteger(d.req_id) && d.req_id>=200 && d.req_id<300){
+         symbol=symbols[d.req_id-200]?.symbol || null;
+       }
+
+       const st=symbol ? state[symbol] : null;
+       if(!st) return;
+
+       const prices=d.history.prices.map(Number).filter(Number.isFinite);
+       const times=(d.history.times||[]).map(Number);
+
+       st.digits=prices
+         .map(p=>lastDigit(p))
+         .filter(x=>Number.isInteger(x)&&x>=0&&x<=9)
+         .slice(-N);
+
+       st.last=st.digits.length ? st.digits[st.digits.length-1] : null;
+       st.lastEpoch=times.length ? (Number(times[times.length-1])||0) : 0;
+       st.historyLoaded=true;
+       st.liveSeen=false;
+       st.phase="WAITING";
+       st.resultText="WAITING FOR LIVE TICK";
+
+       // Apply ticks that arrived before the history response.
+       const pending=st.pendingLive.splice(0);
+       pending.sort((a,b)=>(a.epoch||0)-(b.epoch||0));
+       pending.forEach(p=>{
+         const ep=Number(p.epoch)||0;
+         if(ep && ep<=st.lastEpoch) return;
+         st.lastEpoch=ep || st.lastEpoch;
+         const dg=lastDigit(Number(p.quote));
+         if(Number.isNaN(dg)) return;
+         st.liveSeen=true;
+         st.last=dg;
+         st.digits.push(dg);
+         if(st.digits.length>N) st.digits.shift();
+       });
+
+       if(st.phase==="WAITING" && st.liveSeen && st.digits.length>=MIN){
+         analyze(st);
+       }
+
+       render(st);
+       updateSummary();
+     }
+   }catch(err){
+     console.warn("Message handling error",err);
+   }
+ };
+
+ ws.onerror=()=>{
+   setConnection("RECONNECTING");
+ };
+
+ ws.onclose=()=>{
+   setConnection("RECONNECTING");
+   endpointIndex=(endpointIndex+1)%WS_ENDPOINTS.length;
+   scheduleReconnect();
+ };
+}
+
+function setConnection(text){
+ const el=document.getElementById("conn");
+ el.textContent=text;
+ if(text==="CONNECTED"){
+   el.style.color="var(--green)";
+   el.style.borderColor="#236d61";
+   el.style.background="#0d302d";
+ }else{
+   el.style.color="var(--gold)";
+   el.style.borderColor="#735d20";
+   el.style.background="#2b2410";
+ }
+}
+
+
+
+window.addEventListener("online",()=>connect());
+window.addEventListener("offline",()=>setConnection("OFFLINE"));
+
+document.getElementById("refreshBtn").addEventListener("click",()=>{
+  setConnection("REFRESHING");
+  if(ws && ws.readyState===WebSocket.OPEN) ws.close();
+  setTimeout(()=>window.location.reload(),150);
+});
+
+connect();
+symbols.forEach(render);
+</script>
+</body>
+</html>
